@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora Festival Perfeito™ | Upsell</title>
+  <style>
+    :root {
+      --pink-50: #fff4f7;
+      --pink-100: #ffe2ea;
+      --pink-300: #ef9eb5;
+      --cream: #fff8eb;
+      --cream-2: #f9ead0;
+      --chocolate: #3b2118;
+      --chocolate-2: #5b3325;
+      --gold: #d6aa4a;
+      --gold-2: #f4df9d;
+      --white: #ffffff;
+      --muted: #7d6259;
+      --line: rgba(91, 51, 37, 0.14);
+      --shadow: 0 22px 60px rgba(59, 33, 24, 0.16);
+      --radius: 8px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--chocolate);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(255, 226, 234, 0.62) 0 1px, transparent 1px 100%),
+        linear-gradient(0deg, rgba(255, 226, 234, 0.42) 0 1px, transparent 1px 100%);
+      background-size: 42px 42px;
+      opacity: 0.32;
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--chocolate);
+      color: var(--cream);
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 8px 22px rgba(59, 33, 24, 0.18);
+    }
+
+    .section {
+      padding: 54px 18px;
+    }
+
+    .section.alt {
+      background: rgba(255, 255, 255, 0.56);
+      border-block: 1px solid var(--line);
+    }
+
+    .section.pink {
+      background: var(--pink-50);
+      border-block: 1px solid rgba(239, 158, 181, 0.26);
+    }
+
+    .wrap {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--chocolate-2);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(2.42rem, 9vw, 5.2rem);
+      font-weight: 950;
+    }
+
+    h2 {
+      max-width: 780px;
+      font-size: clamp(2rem, 6vw, 3.35rem);
+      font-weight: 920;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      font-weight: 900;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 2.4vw, 1.22rem);
+      max-width: 720px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 46px 18px 64px;
+      background:
+        linear-gradient(135deg, rgba(255, 244, 247, 0.98), rgba(255, 248, 235, 0.98) 52%, rgba(255, 255, 255, 0.88));
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-note {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid rgba(214, 170, 74, 0.34);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--chocolate-2);
+      font-size: 0.8rem;
+      font-weight: 850;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: grid;
+      gap: 12px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 56px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      cursor: pointer;
+      font-size: 0.94rem;
+      font-weight: 950;
+      text-align: center;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn-primary {
+      background: var(--chocolate);
+      color: var(--white);
+      box-shadow: 0 14px 28px rgba(59, 33, 24, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--chocolate-2);
+      box-shadow: 0 18px 34px rgba(59, 33, 24, 0.31);
+    }
+
+    .btn-gold {
+      background: linear-gradient(180deg, var(--gold-2), var(--gold));
+      color: var(--chocolate);
+      box-shadow: 0 14px 32px rgba(214, 170, 74, 0.34);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.08);
+      box-shadow: 0 18px 38px rgba(214, 170, 74, 0.42);
+    }
+
+    .decline {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      color: rgba(59, 33, 24, 0.58);
+      font-size: 0.9rem;
+      font-weight: 750;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: color 180ms ease;
+    }
+
+    .decline:hover {
+      color: var(--chocolate);
+    }
+
+    .dashboard-shell {
+      position: relative;
+      border: 1px solid rgba(91, 51, 37, 0.13);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .dashboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      background: var(--chocolate);
+      color: var(--cream);
+    }
+
+    .dash-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 900;
+    }
+
+    .slice-mark {
+      position: relative;
+      width: 32px;
+      height: 28px;
+      flex: 0 0 auto;
+      border-radius: 5px 12px 5px 5px;
+      background: linear-gradient(135deg, var(--gold-2), var(--pink-300) 52%, var(--chocolate-2));
+      transform: skewX(-8deg);
+      box-shadow: inset -5px -5px 0 rgba(59, 33, 24, 0.12);
+    }
+
+    .slice-mark::after {
+      content: "";
+      position: absolute;
+      right: 5px;
+      top: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--cream);
+      box-shadow: -10px 8px 0 rgba(255, 248, 235, 0.86);
+    }
+
+    .dash-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(255, 248, 235, 0.12);
+      font-size: 0.72rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .dash-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #83d28a;
+      box-shadow: 0 0 0 4px rgba(131, 210, 138, 0.12);
+    }
+
+    .dashboard-body {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 244, 247, 0.86), rgba(255, 255, 255, 0.9)),
+        var(--white);
+    }
+
+    .dash-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metric {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid rgba(91, 51, 37, 0.11);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .metric small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--chocolate);
+      font-size: clamp(1.35rem, 7vw, 2rem);
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .metric.gold {
+      background: linear-gradient(180deg, rgba(244, 223, 157, 0.72), rgba(255, 255, 255, 0.88));
+      border-color: rgba(214, 170, 74, 0.34);
+    }
+
+    .profit-strip {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(214, 170, 74, 0.34);
+      border-radius: var(--radius);
+      background: var(--chocolate);
+      color: var(--cream);
+    }
+
+    .margin-ring {
+      display: grid;
+      width: 78px;
+      height: 78px;
+      place-items: center;
+      border-radius: 999px;
+      background: conic-gradient(var(--gold) 0 61%, rgba(255, 248, 235, 0.16) 61% 100%);
+    }
+
+    .margin-ring span {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--chocolate);
+      font-weight: 950;
+    }
+
+    .profit-strip p {
+      color: rgba(255, 248, 235, 0.78);
+      font-size: 0.83rem;
+    }
+
+    .profit-strip strong {
+      display: block;
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 950;
+    }
+
+    .text-block {
+      display: grid;
+      gap: 18px;
+      max-width: 820px;
+    }
+
+    .pain-list,
+    .receive-list {
+      display: grid;
+      gap: 12px;
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pain-list li,
+    .receive-list li {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 56px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--chocolate-2);
+      font-weight: 780;
+    }
+
+    .icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--pink-100);
+      color: var(--chocolate);
+      font-weight: 950;
+    }
+
+    .compare-grid,
+    .value-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .compare-panel,
+    .scenario {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(59, 33, 24, 0.08);
+    }
+
+    .compare-panel header,
+    .scenario header {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 950;
+    }
+
+    .compare-panel.danger header {
+      background: #fff1f1;
+      color: #8a2d24;
+    }
+
+    .compare-panel.safe header {
+      background: #f7f4de;
+      color: var(--chocolate);
+    }
+
+    .compare-panel ul,
+    .scenario ul {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 18px;
+      list-style: none;
+    }
+
+    .compare-panel li,
+    .scenario li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(91, 51, 37, 0.09);
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .compare-panel li:last-child,
+    .scenario li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .compare-panel strong,
+    .scenario strong {
+      color: var(--chocolate);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .solution-grid {
+      display: grid;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .feature-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 13px;
+      border: 1px solid rgba(214, 170, 74, 0.28);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      font-weight: 850;
+    }
+
+    .feature-pill::before {
+      content: "✓";
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--chocolate);
+      font-size: 0.82rem;
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .tool-preview {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .tool-window {
+      min-height: 320px;
+      border: 1px solid rgba(91, 51, 37, 0.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .tool-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: var(--chocolate);
+      color: var(--cream);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .toolbar-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .toolbar-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--gold);
+      opacity: 0.9;
+    }
+
+    .tool-form {
+      display: grid;
+      gap: 11px;
+      padding: 14px;
+    }
+
+    .fake-field {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid rgba(91, 51, 37, 0.11);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .fake-field span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 850;
+    }
+
+    .fake-field strong {
+      font-size: 1.02rem;
+      font-weight: 930;
+    }
+
+    .progress-line {
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(91, 51, 37, 0.1);
+      overflow: hidden;
+    }
+
+    .progress-line i {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink-300), var(--gold));
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .calc-card {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      min-height: 86px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 24px rgba(59, 33, 24, 0.06);
+    }
+
+    .calc-card .icon {
+      background: var(--cream-2);
+    }
+
+    .calc-card strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .value-note {
+      margin-top: 18px;
+      padding: 16px;
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--chocolate-2);
+      font-size: 1.06rem;
+      font-weight: 900;
+    }
+
+    .offer {
+      background:
+        linear-gradient(135deg, var(--chocolate), #4a281d 58%, #27140f);
+      color: var(--cream);
+    }
+
+    .offer .wrap {
+      display: grid;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .offer h2,
+    .offer .lead {
+      color: var(--cream);
+    }
+
+    .offer .lead {
+      opacity: 0.84;
+    }
+
+    .price-box {
+      padding: 22px;
+      border: 1px solid rgba(244, 223, 157, 0.26);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .price-box small {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--gold-2);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .price {
+      display: flex;
+      align-items: end;
+      gap: 6px;
+      margin: 8px 0 14px;
+      color: var(--white);
+      font-size: clamp(4rem, 18vw, 7rem);
+      line-height: 0.9;
+      font-weight: 950;
+    }
+
+    .price span {
+      padding-bottom: 10px;
+      color: var(--gold-2);
+      font-size: 1.5rem;
+      font-weight: 950;
+    }
+
+    .support-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0 20px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .support-list li {
+      padding: 10px;
+      border-radius: var(--radius);
+      background: rgba(255, 248, 235, 0.1);
+      color: rgba(255, 248, 235, 0.88);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .urgency {
+      padding: 18px;
+      border: 1px solid rgba(214, 170, 74, 0.36);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 235, 0.1);
+      color: rgba(255, 248, 235, 0.88);
+      font-weight: 760;
+    }
+
+    .final-cta {
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255, 244, 247, 0.96), rgba(255, 248, 235, 0.96));
+    }
+
+    .final-cta .wrap {
+      display: grid;
+      justify-items: center;
+      gap: 20px;
+    }
+
+    .final-cta h2 {
+      margin-inline: auto;
+    }
+
+    .final-cta .cta-actions {
+      width: min(100%, 560px);
+    }
+
+    .tiny {
+      color: rgba(59, 33, 24, 0.52);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 580ms ease, transform 580ms ease;
+    }
+
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 560px) {
+      .section {
+        padding: 72px 26px;
+      }
+
+      .hero {
+        padding: 62px 26px 78px;
+      }
+
+      .hero-actions,
+      .cta-actions {
+        grid-template-columns: minmax(280px, auto) auto;
+        justify-content: start;
+      }
+
+      .pain-list,
+      .receive-list,
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .dash-grid {
+        gap: 12px;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .hero-grid,
+      .solution-grid,
+      .offer .wrap {
+        grid-template-columns: 1fr 0.84fr;
+      }
+
+      .hero-copy {
+        gap: 20px;
+      }
+
+      .compare-grid,
+      .value-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .receive-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .final-cta .cta-actions {
+        grid-template-columns: 1fr;
+        justify-content: center;
+      }
+
+      .final-cta .decline {
+        justify-self: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">⚠️ Oferta exclusiva liberada apenas nesta página</div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy fade-up">
+          <span class="hero-note">Cliente do Kit Festival de Fatias Lucrativo</span>
+          <h1>ESPERE! Antes De Fazer Seu Festival, Descubra Se Ele Vai Dar Lucro</h1>
+          <p class="lead">A maioria das confeiteiras compra ingredientes, produz bolos e só depois percebe que vendeu barato, produziu demais ou lucrou muito menos do que imaginava.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#oferta">SIM! QUERO PLANEJAR MEU FESTIVAL</a>
+            <a class="decline" href="#recusa">Não, vou fazer no achismo</a>
+          </div>
+        </div>
+
+        <div class="dashboard-shell fade-up" aria-label="Mockup da Calculadora Festival Perfeito">
+          <div class="dashboard-top">
+            <div class="dash-brand">
+              <span class="slice-mark" aria-hidden="true"></span>
+              <span>Calculadora Festival Perfeito™</span>
+            </div>
+            <span class="dash-status">Planejado</span>
+          </div>
+          <div class="dashboard-body">
+            <div class="dash-grid">
+              <div class="metric">
+                <small>Fatias planejadas</small>
+                <strong data-count="100">100</strong>
+              </div>
+              <div class="metric">
+                <small>Bolos necessários</small>
+                <strong data-count="5">5</strong>
+              </div>
+              <div class="metric">
+                <small>Faturamento</small>
+                <strong>R$1.200</strong>
+              </div>
+              <div class="metric gold">
+                <small>Lucro estimado</small>
+                <strong>R$730</strong>
+              </div>
+            </div>
+            <div class="profit-strip">
+              <div class="margin-ring"><span>61%</span></div>
+              <div>
+                <strong>Margem do festival</strong>
+                <p>Antes de comprar ingredientes, você já enxerga custo, produção, faturamento e lucro.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pink">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow">Risco silencioso</span>
+          <h2>Você Pode Estar Planejando Seu Festival No Escuro</h2>
+          <p class="lead">Vender fatias parece simples, mas pequenos erros podem destruir seu lucro.</p>
+        </div>
+        <ul class="pain-list">
+          <li class="fade-up"><span class="icon">!</span>Produzir bolos demais e sobrar produto</li>
+          <li class="fade-up"><span class="icon">!</span>Produzir pouco e perder vendas</li>
+          <li class="fade-up"><span class="icon">!</span>Errar o preço da fatia</li>
+          <li class="fade-up"><span class="icon">!</span>Esquecer custos de embalagem</li>
+          <li class="fade-up"><span class="icon">!</span>Não saber o ponto de equilíbrio</li>
+          <li class="fade-up"><span class="icon">!</span>Trabalhar o fim de semana inteiro para lucrar pouco</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow">O ponto cego</span>
+          <h2>O Problema Não É Vender. É Vender Sem Saber Os Números.</h2>
+        </div>
+        <div class="compare-grid">
+          <article class="compare-panel danger fade-up">
+            <header>Sem planejamento</header>
+            <ul>
+              <li><span>Fatias vendidas</span><strong>100</strong></li>
+              <li><span>Faturamento</span><strong>R$1.200</strong></li>
+              <li><span>Lucro real</span><strong>Desconhecido</strong></li>
+              <li><span>Risco</span><strong>Alto prejuízo</strong></li>
+            </ul>
+          </article>
+          <article class="compare-panel safe fade-up">
+            <header>Com a calculadora</header>
+            <ul>
+              <li><span>Fatias planejadas</span><strong>100</strong></li>
+              <li><span>Bolos necessários</span><strong>5</strong></li>
+              <li><span>Custo estimado</span><strong>R$470</strong></li>
+              <li><span>Lucro previsto</span><strong>R$730</strong></li>
+              <li><span>Decisão</span><strong>Com segurança</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap solution-grid">
+        <div class="text-block fade-up">
+          <span class="eyebrow">A solução</span>
+          <h2>Conheça a Calculadora Festival Perfeito™</h2>
+          <p class="lead">Uma ferramenta simples e profissional para calcular em segundos quantos bolos produzir, quanto investir, quanto cobrar, quanto faturar e quanto lucrar no seu Festival de Fatias.</p>
+          <div class="feature-stack">
+            <div class="feature-pill">Sem planilhas complicadas</div>
+            <div class="feature-pill">Sem fórmulas difíceis</div>
+            <div class="feature-pill">Sem precisar fazer contas na mão</div>
+            <div class="feature-pill">Tudo direto no navegador</div>
+          </div>
+        </div>
+        <div class="tool-preview fade-up" aria-label="Visual da ferramenta no navegador">
+          <div class="tool-window">
+            <div class="tool-toolbar">
+              <span>Festival de Fatias</span>
+              <div class="toolbar-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tool-form">
+              <div class="fake-field">
+                <span>Meta de vendas</span>
+                <strong>100 fatias</strong>
+                <div class="progress-line"><i style="--w: 78%"></i></div>
+              </div>
+              <div class="fake-field">
+                <span>Preço por fatia</span>
+                <strong>R$12,00</strong>
+                <div class="progress-line"><i style="--w: 64%"></i></div>
+              </div>
+              <div class="fake-field">
+                <span>Resumo automático</span>
+                <strong>5 bolos · R$730 de lucro</strong>
+                <div class="progress-line"><i style="--w: 88%"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow">Cálculos prontos</span>
+          <h2>O Que A Ferramenta Calcula</h2>
+        </div>
+        <div class="cards-grid">
+          <div class="calc-card fade-up"><span class="icon">01</span><strong>Quantos bolos produzir</strong></div>
+          <div class="calc-card fade-up"><span class="icon">02</span><strong>Quantas fatias vender</strong></div>
+          <div class="calc-card fade-up"><span class="icon">03</span><strong>Quantos sabores oferecer</strong></div>
+          <div class="calc-card fade-up"><span class="icon">04</span><strong>Custo total de produção</strong></div>
+          <div class="calc-card fade-up"><span class="icon">05</span><strong>Custo com embalagens</strong></div>
+          <div class="calc-card fade-up"><span class="icon">06</span><strong>Faturamento bruto</strong></div>
+          <div class="calc-card fade-up"><span class="icon">07</span><strong>Lucro estimado</strong></div>
+          <div class="calc-card fade-up"><span class="icon">08</span><strong>Margem de lucro</strong></div>
+          <div class="calc-card fade-up"><span class="icon">09</span><strong>Ponto de equilíbrio</strong></div>
+          <div class="calc-card fade-up"><span class="icon">10</span><strong>Resumo para WhatsApp</strong></div>
+          <div class="calc-card fade-up"><span class="icon">11</span><strong>PDF do planejamento</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pink">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow">Valor na prática</span>
+          <h2>Veja Como Um Simples Ajuste Pode Mudar Seu Lucro</h2>
+        </div>
+        <div class="value-grid">
+          <article class="scenario fade-up">
+            <header>Cenário 1</header>
+            <ul>
+              <li><span>Fatia</span><strong>R$10</strong></li>
+              <li><span>Quantidade</span><strong>100 fatias</strong></li>
+              <li><span>Faturamento</span><strong>R$1.000</strong></li>
+              <li><span>Lucro estimado</span><strong>R$520</strong></li>
+            </ul>
+          </article>
+          <article class="scenario fade-up">
+            <header>Cenário 2</header>
+            <ul>
+              <li><span>Fatia</span><strong>R$12</strong></li>
+              <li><span>Quantidade</span><strong>100 fatias</strong></li>
+              <li><span>Faturamento</span><strong>R$1.200</strong></li>
+              <li><span>Lucro estimado</span><strong>R$720</strong></li>
+            </ul>
+          </article>
+        </div>
+        <p class="value-note fade-up">Apenas R$2 a mais por fatia podem representar R$200 extras no mesmo festival.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow">Entrega imediata</span>
+          <h2>O Que Você Recebe</h2>
+        </div>
+        <ul class="receive-list">
+          <li class="fade-up"><span class="icon">✓</span>Acesso à Calculadora Festival Perfeito™</li>
+          <li class="fade-up"><span class="icon">✓</span>Simulador de cenários</li>
+          <li class="fade-up"><span class="icon">✓</span>Planejamento de produção</li>
+          <li class="fade-up"><span class="icon">✓</span>Cálculo de lucro</li>
+          <li class="fade-up"><span class="icon">✓</span>Cálculo de margem</li>
+          <li class="fade-up"><span class="icon">✓</span>Ponto de equilíbrio</li>
+          <li class="fade-up"><span class="icon">✓</span>Exportação em PDF</li>
+          <li class="fade-up"><span class="icon">✓</span>Resumo pronto para WhatsApp</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section offer" id="oferta">
+      <div class="wrap">
+        <div class="text-block fade-up">
+          <span class="eyebrow" style="color: var(--gold-2)">Oferta única</span>
+          <h2>Oferta Única Para Clientes Do Kit Festival De Fatias</h2>
+          <p class="lead">Essa ferramenta poderia facilmente ser vendida por R$197, mas hoje você pode adicionar ao seu pedido por apenas:</p>
+          <div class="urgency">Esta oferta especial aparece apenas agora, logo após sua compra. Se você sair desta página, poderá não conseguir adicionar a Calculadora Festival Perfeito™ por este valor novamente.</div>
+        </div>
+        <div class="price-box fade-up">
+          <small>Adicionar agora</small>
+          <div class="price"><span>R$</span>67</div>
+          <ul class="support-list">
+            <li>Pagamento único</li>
+            <li>Acesso imediato</li>
+            <li>Sem mensalidade</li>
+            <li>Sem assinatura</li>
+          </ul>
+          <a class="btn btn-gold" href="#sim">SIM! ADICIONAR AO MEU PEDIDO</a>
+          <p class="tiny" style="margin-top: 12px; color: rgba(255, 248, 235, 0.62)">Você continua com o Kit Festival de Fatias Lucrativo e adiciona a calculadora ao pedido atual.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta" id="recusa">
+      <div class="wrap fade-up">
+        <span class="eyebrow">Último passo</span>
+        <h2>Pare De Produzir No Achismo. Planeje Seu Festival Com Números Reais.</h2>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#sim">SIM! QUERO A CALCULADORA</a>
+          <a class="decline" href="#nao">Não, prefiro arriscar sem calcular</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const revealItems = document.querySelectorAll(".fade-up");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+      observer.observe(item);
+    });
+
+    document.querySelectorAll('a[href="#sim"]').forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        button.textContent = "Perfeito! Direcionando...";
+        button.style.pointerEvents = "none";
+      });
+    });
+
+    document.querySelectorAll('a[href="#nao"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        document.querySelector("#oferta").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
