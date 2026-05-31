@@ -1083,7 +1083,7 @@
             <li>Sem mensalidade</li>
             <li>Sem assinatura</li>
           </ul>
-          <a class="btn btn-gold" href="#sim">SIM! ADICIONAR AO MEU PEDIDO</a>
+          <a class="btn btn-gold" href="#sim" id="llupsell-C28775658-">SIM! ADICIONAR AO MEU PEDIDO</a>
           <p class="tiny" style="margin-top: 12px; color: rgba(255, 248, 235, 0.62)">Você continua com o Kit Festival de Fatias Lucrativo e adiciona a calculadora ao pedido atual.</p>
         </div>
       </div>
@@ -1095,7 +1095,7 @@
         <h2>Pare De Produzir No Achismo. Planeje Seu Festival Com Números Reais.</h2>
         <div class="cta-actions">
           <a class="btn btn-primary" href="#sim">SIM! QUERO A CALCULADORA</a>
-          <a class="decline" href="#nao">Não, prefiro arriscar sem calcular</a>
+          <a class="decline" href="#nao" id="denyButton-upsell2">Não, prefiro arriscar sem calcular</a>
         </div>
       </div>
     </section>
@@ -1118,20 +1118,64 @@
       observer.observe(item);
     });
 
-    document.querySelectorAll('a[href="#sim"]').forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        button.textContent = "Perfeito! Direcionando...";
-        button.style.pointerEvents = "none";
-      });
-    });
-
     document.querySelectorAll('a[href="#nao"]').forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         document.querySelector("#oferta").scrollIntoView({ behavior: "smooth" });
       });
     });
+  </script>
+  <script src="https://cdn.lastlink.com/upsell.min.js"></script>
+
+  <script>
+  (function () {
+
+    function redirectWithParams(targetUrl) {
+
+      const currentUrl = new URL(window.location.href);
+      const newUrl = new URL(targetUrl);
+
+      currentUrl.searchParams.forEach((value, key) => {
+        newUrl.searchParams.append(key, value);
+      });
+
+      window.location.href = newUrl.toString();
+    }
+
+    function setupDenyButtons() {
+
+      document
+        .querySelectorAll('[id^="denyButton"]')
+        .forEach(button => {
+
+          button.onclick = function(event) {
+
+            event.preventDefault();
+
+            redirectWithParams(
+              "https://dsell3.netlify.app/"
+            );
+
+          };
+
+        });
+
+    }
+
+    if (document.readyState === 'loading') {
+
+      document.addEventListener(
+        'DOMContentLoaded',
+        setupDenyButtons
+      );
+
+    } else {
+
+      setupDenyButtons();
+
+    }
+
+  })();
   </script>
 </body>
 </html>
